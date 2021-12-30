@@ -1,0 +1,28 @@
+
+stages:
+
+- stage: build
+  pool:
+    vmImage: windows-latest
+  jobs:
+  - job: build
+    steps:
+    - powershell: |
+        Write-Host "My build job"
+      displayName: My build job
+
+- stage: deploy
+  pool:
+    vmImage: windows-latest
+  jobs:
+    - deployment: 
+      environment: dev
+      dependsOn: build
+
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - powershell: |
+                  Write-Host "My deploy job"
+                displayName: My deploy job
