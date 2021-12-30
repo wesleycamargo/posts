@@ -1,4 +1,8 @@
 
+parameters:
+  - name: applicationName
+    type: string
+
 stages:
 
 - stage: build
@@ -8,7 +12,7 @@ stages:
   - job: build
     steps:
     - powershell: |
-        Write-Host "My build job"
+        Write-Host "Building app ${{ parameters.applicationName }}"
       displayName: My build job
 
 - stage: deploy
@@ -24,5 +28,5 @@ stages:
           deploy:
             steps:
               - powershell: |
-                  Write-Host "My deploy job"
+                  Write-Host "Deploying app ${{ parameters.applicationName }}"
                 displayName: My deploy job
